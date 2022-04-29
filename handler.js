@@ -30,7 +30,8 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/users", function (req, res) {
-    users.push(req.body);
+    const newUser = JSON.parse(req.apiGateway.event.body);
+    users.push(newUser);
     res.send(users);
 });
 
