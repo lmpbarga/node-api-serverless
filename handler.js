@@ -18,11 +18,7 @@ const users = [
 ];
 
 app.get("/", (req, res) => {
-    res.send(
-        JSON.stringify(
-            "Go Serverless v3.0! Your function executed successfully!"
-        )
-    );
+    res.send(JSON.stringify("Your function executed successfully!"));
 });
 
 app.get("/users", (req, res) => {
