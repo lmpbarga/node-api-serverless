@@ -17,13 +17,21 @@ const users = [
     },
 ];
 
+app.get("/", (req, res) => {
+    res.send(
+        JSON.stringify(
+            "Go Serverless v3.0! Your function executed successfully!"
+        )
+    );
+});
+
 app.get("/users", (req, res) => {
     res.send(users);
 });
 
 app.post("/users", function (req, res) {
     users.push(req.body);
-    res.sendStatus(200);
+    res.send(users);
 });
 
 app.get("/users/:id", function (req, res) {
@@ -35,7 +43,7 @@ app.get("/users/:id", function (req, res) {
 
 app.put("/users/:id", function (req, res) {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name } = JSON.parse(req.apiGateway.event.body);
     const userIndex = users.findIndex((user) => user.id === id);
 
     if (userIndex) {
@@ -46,17 +54,16 @@ app.put("/users/:id", function (req, res) {
         });
     }
 
-    res.sendStatus(200);
+    res.send(users);
 });
 
 app.delete("/users/:id", function (req, res) {
     const { id } = req.params;
     const userIndex = users.findIndex((user) => user.id === id);
     if (userIndex !== -1) {
-        ``;
         users.splice(userIndex, 1);
     }
-    res.sendStatus(200);
+    res.send(users);
 });
 
 app.use((req, res, next) => {
